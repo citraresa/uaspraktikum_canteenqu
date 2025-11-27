@@ -5,6 +5,7 @@ class ProductCitra {
   final int stock;
   final String imageUrl;
 
+  // tabel product
   ProductCitra({
     required this.productId,
     required this.name,
