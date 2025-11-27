@@ -13,8 +13,7 @@ class FirebaseService_citra {
     name: "Nasi Goreng",
     price: 10000,
     stock: 20,
-    imageUrl: "https://images.pexels.com/photos/13511060/pexels-photo-13511060.jpeg",
-    category: "Makanan",
+    imageUrl: "https://images.pexels.com/photos/13511060/pexels-photo-13511060.jpeg"
   ),
     ProductCitra(
     productId: "p2",
@@ -22,7 +21,6 @@ class FirebaseService_citra {
     price: 5000,
     stock: 50,
     imageUrl: "https://images.pexels.com/photos/6605211/pexels-photo-6605211.jpeg",
-    category: "Makanan",
   ),
     ProductCitra(
     productId: "p3",
@@ -30,7 +28,6 @@ class FirebaseService_citra {
     price: 8000,
     stock: 20,
     imageUrl: "https://images.pexels.com/photos/5410408/pexels-photo-5410408.jpeg",
-    category: "Makanan",
   ),
     ProductCitra(
     productId: "p4",
@@ -38,7 +35,6 @@ class FirebaseService_citra {
     price: 12000,
     stock: 20,
     imageUrl: "https://images.pexels.com/photos/8883029/pexels-photo-8883029.jpeg",
-    category: "Makanan",
   ),
   ProductCitra(
     productId: "p5",
@@ -46,7 +42,6 @@ class FirebaseService_citra {
     price: 10000,
     stock: 15,
     imageUrl: "https://images.pexels.com/photos/12345367/pexels-photo-12345367.jpeg",
-    category: "Makanan",
   ),
 
   ProductCitra(
@@ -55,7 +50,6 @@ class FirebaseService_citra {
     price: 3000,
     stock: 50,
     imageUrl: "https://images.pexels.com/photos/996891/pexels-photo-996891.jpeg",
-    category: "Minuman",
   ),
 
   ProductCitra(
@@ -64,7 +58,6 @@ class FirebaseService_citra {
     price: 2000,
     stock: 40,
     imageUrl: "https://images.pexels.com/photos/3730457/pexels-photo-3730457.jpeg",
-    category: "Minuman",
   ),
 
   ProductCitra(
@@ -73,7 +66,6 @@ class FirebaseService_citra {
     price: 4000,
     stock: 25,
     imageUrl: "https://images.pexels.com/photos/585750/pexels-photo-585750.jpeg",
-    category: "Minuman",
   ),
 
   ProductCitra(
@@ -82,7 +74,6 @@ class FirebaseService_citra {
     price: 6000,
     stock: 20,
     imageUrl: "https://images.pexels.com/photos/96974/pexels-photo-96974.jpeg",
-    category: "Minuman",
   ),
 
   ProductCitra(
@@ -91,7 +82,6 @@ class FirebaseService_citra {
     price: 3000,
     stock: 300,
     imageUrl: "https://images.pexels.com/photos/1342357/pexels-photo-1342357.jpeg",
-    category: "Minuman",
   ),
 ];
     for (var product in dummyProducts_citra) {
