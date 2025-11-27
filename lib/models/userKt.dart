@@ -1,10 +1,10 @@
-class UserCtr {
+class UserCitra {
   final String userId;
   final String email;
   final String fullName;
   final String password;
 
-  UserCtr({
+  UserCitra({
     required this.userId,
     required this.email,
     required this.fullName,
@@ -20,8 +20,8 @@ class UserCtr {
     };
   }
 
-  factory UserCtr.fromMap(Map<String, dynamic> map) {
-    return UserCtr(
+  factory UserCitra.fromMap(Map<String, dynamic> map) {
+    return UserCitra(
       userId: map['userId'] ?? '',
       email: map['email'] ?? '',
       fullName: map['fullName'] ?? '',
