@@ -4,15 +4,14 @@ class ProductCitra {
   final int price;
   final int stock;
   final String imageUrl;
-  final String category;
 
+  // tabel product
   ProductCitra({
     required this.productId,
     required this.name,
     required this.price,
     required this.stock,
     required this.imageUrl,
-    required this.category,
   });
 
   Map<String, dynamic> toMap() {
@@ -22,7 +21,6 @@ class ProductCitra {
       'price': price,
       'stock': stock,
       'imageUrl': imageUrl,
-      'category': category,
     };
   }
 
@@ -33,7 +31,6 @@ class ProductCitra {
       price: map['price'] ?? 0,
       stock: map['stock'] ?? 0,
       imageUrl: map['imageUrl'] ?? '',
-      category: map['category'] ?? '',
     );
   }
 }
