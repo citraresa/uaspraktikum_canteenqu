@@ -5,7 +5,7 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: ^3.9.2
+  sdk: ">=3.9.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -22,3 +22,15 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/images/canteenqu.png
+    - assets/icons/keranjang.png
+
+  fonts:
+    - family: poppins
+      fonts:
+        - asset: assets/fonts/poppins-Regular.ttf
+        - asset: assets/fonts/poppins-Bold.ttf
+          weight: 700
+    
