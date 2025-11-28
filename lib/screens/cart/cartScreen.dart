@@ -19,7 +19,7 @@ class CartScreenMaulina extends StatelessWidget {
         title: const Text('Keranjang Belanja', style: TextStyle(color: Colors.white)),
         backgroundColor: kPrimaryBlue,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
       ),

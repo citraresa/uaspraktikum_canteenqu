@@ -71,6 +71,30 @@ class HomeScreenMaulina extends StatelessWidget {
                           'Rp ${product.price}',
                           style: const TextStyle(color: Color.fromARGB(255, 0, 0, 0)),
                         ),
+                        const SizedBox(height: 2),
+                        Text(
+                          'Stok: ${product.stock}', // <-- Tambahan stok
+                          style: const TextStyle(
+                            color: Color.fromARGB(255, 0, 0, 0),
+                            fontSize: 12,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                SizedBox(
+                width: double.infinity,
+                 child: ElevatedButton(
+                   onPressed: () {
+                    // Hanya tampilan tombol, tanpa logika
+                     },
+                    style: ElevatedButton.styleFrom(
+                 backgroundColor: kPrimaryBlue,
+                   minimumSize: const Size.fromHeight(30),
+                   ),
+                   child: const Text('Tambah',
+                   style: TextStyle(fontSize: 14, color: Colors.white),
+                   ),
+                    ),
+                    ),
                       ],
                     ),
                   ),
