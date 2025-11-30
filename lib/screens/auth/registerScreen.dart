@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'loginScreen.dart';
 
@@ -12,13 +14,81 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
 
   final _fullnameController_Maulina = TextEditingController();
   final _usernameController_Maulina = TextEditingController();
-  final _emailController_Maulina = TextEditingController();
+  final _emailController_rasya = TextEditingController();
   final _passwordController_Maulina = TextEditingController();
   final _confirmPasswordController_Maulina = TextEditingController();
 
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
 
+  bool _loading = false;
+
+  // REGISTER FUNCTION 
+  Future<void> _register() async {
+    String fullname = _fullnameController_Maulina.text.trim();
+    String username = _usernameController_Maulina.text.trim();
+    String email = _emailController_rasya.text.trim();
+    String password = _passwordController_Maulina.text.trim();
+    String confirmPassword = _confirmPasswordController_Maulina.text.trim();
+
+    // VALIDASI
+    if (fullname.isEmpty ||
+        username.isEmpty ||
+        email.isEmpty ||
+        password.isEmpty ||
+        confirmPassword.isEmpty) {
+      _showError("Semua field harus diisi");
+      return;
+    }
+
+    if (password != confirmPassword) {
+      _showError("Password dan Confirm Password tidak sama");
+      return;
+    }
+
+    setState(() => _loading = true);
+
+    try {
+      // 1. Firebase Auth Register
+      UserCredential userCred = await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(email: email, password: password);
+
+      String uid = userCred.user!.uid;
+
+      // 2. Simpan data user ke Firestore
+      await FirebaseFirestore.instance.collection("users").doc(uid).set({
+        "fullname": fullname,
+        "username": username,
+        "email": email,
+        "uid": uid,
+        "created_at": DateTime.now(),
+      });
+
+      if (!mounted) return;
+
+      // 3. Redirect ke Login
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginScreenMaulina()),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Registrasi berhasil, silakan login!")),
+      );
+    } on FirebaseAuthException catch (e) {
+      _showError(e.message ?? "Terjadi kesalahan");
+    } finally {
+      setState(() => _loading = false);
+    }
+  }
+
+  void _showError(String msg) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(msg)),
+    );
+  }
+
+  // ---------------- UI -----------------
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,6 +99,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
               Text(
                 "CREATE ACCOUNT",
                 style: TextStyle(
@@ -79,7 +150,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
 
               // Email
               TextFormField(
-                controller: _emailController_Maulina,
+                controller: _emailController_rasya,
                 decoration: InputDecoration(
                   labelText: 'Email',
                   labelStyle: TextStyle(color: kPrimaryBlue),
@@ -144,17 +215,13 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text("Register ditekan (UI-only)"),
-                      ),
-                    );
-                  },
-                  child: const Text(
-                    'Register',
-                    style: TextStyle(fontSize: 16),
-                  ),
+                  onPressed: _loading ? null : _register,
+                  child: _loading
+                      ? const CircularProgressIndicator(color: Colors.white)
+                      : const Text(
+                          'Register',
+                          style: TextStyle(fontSize: 16),
+                        ),
                 ),
               ),
 
