@@ -2,10 +2,10 @@ import 'package:canteenqu/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-// Tambahkan import untuk screen login, register, home
 import 'screens/auth/loginScreen.dart';
 import 'screens/auth/registerScreen.dart';
 import 'screens/home/homeScreen.dart';
+import 'services/session_service_rasya.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,19 +20,37 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'CanteenQu',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      // Ubah home menjadi LoginScreen, tapi MyHomePage tetap ada di project
-      home: const LoginScreenMaulina(),
+    return FutureBuilder<bool>(
+      future: SessionService_rasya().isLoggedIn_rasya(),
+      builder: (context, snapshot) {
+        // loading screen
+        if (!snapshot.hasData) {
+          return const MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        }
+
+        bool isLoggedIn = snapshot.data!;
+
+        return MaterialApp(
+          title: 'CanteenQu',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          ),
+          home: isLoggedIn
+              ? HomeScreenMaulina()
+              : LoginScreenMaulina(),
+        );
+      },
     );
   }
 }
 
-// MyHomePage lama tetap ada, tidak dihapus
+// MyHomePage tetap sama
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
