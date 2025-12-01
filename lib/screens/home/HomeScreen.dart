@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:canteenqu/seedingMenu/menuDummy.dart';
-import 'package:provider/provider.dart';
 import '../cart/cartScreen.dart';
-import 'package:canteenqu/providers/cart_provider.dart';
+
 
 class HomeScreenMaulina extends StatelessWidget {
   const HomeScreenMaulina({super.key});
@@ -10,9 +9,6 @@ class HomeScreenMaulina extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
-
-    final cartProvider = Provider.of<CartProviderNazwa>(context);
-
 
     return Scaffold(
       appBar: AppBar(
@@ -84,18 +80,15 @@ class HomeScreenMaulina extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 8),
-                        SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                        onPressed: () {
-                        cartProvider.addToCartNazwa(product);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('${product.name} ditambahkan ke keranjang')),
-                        );
+                SizedBox(
+                width: double.infinity,
+                 child: ElevatedButton(
+                   onPressed: () {
+                    // Hanya tampilan tombol, tanpa logika
                      },
                     style: ElevatedButton.styleFrom(
-                    backgroundColor: kPrimaryBlue,
-                    minimumSize: const Size.fromHeight(30),
+                 backgroundColor: kPrimaryBlue,
+                   minimumSize: const Size.fromHeight(30),
                    ),
                    child: const Text('Tambah',
                    style: TextStyle(fontSize: 14, color: Colors.white),
