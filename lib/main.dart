@@ -1,18 +1,30 @@
 import 'package:canteenqu/firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/auth/loginScreen.dart';
 import 'screens/auth/registerScreen.dart';
 import 'screens/home/homeScreen.dart';
 import 'services/session_service_rasya.dart';
 
+import 'providers/cart_provider.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+  runApp(
+  MultiProvider(
+    providers: [
+      ChangeNotifierProvider(
+        create: (_) => CartProviderNazwa(),
+      ),
+    ],
+    child: const MyApp(),
+  ),
+);
 }
 
 class MyApp extends StatelessWidget {
