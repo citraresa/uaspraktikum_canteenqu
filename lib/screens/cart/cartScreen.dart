@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:canteenqu/providers/cart_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:canteenqu/models/transaksiKt.dart';
+import 'package:canteenqu/services/transaction_service_nazwa.dart';
 
 class CartScreenMaulina extends StatelessWidget {
   const CartScreenMaulina({super.key});
@@ -61,6 +63,16 @@ class CartScreenMaulina extends StatelessWidget {
       );
 
       if (!lanjut) return;
+      
+      final trx = TransactionNazwa(
+        trxid: DateTime.now().millisecondsSinceEpoch.toString(),
+        total_final: checkoutNazwa["totalBayar"],
+        status: "Success",
+        items: checkoutNazwa["totalPerBarang"],
+        timestamp: DateTime.now(),
+      );
+
+      await TransactionService().simpanTransaksi(trx);
 
       // Update stok & kosongkan keranjang
       await cartProvider.updateStokFirebaseNazwa();
