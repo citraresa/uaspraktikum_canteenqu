@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<bool>(
-      future: SessionService_rasya().isLoggedIn_rasya(),
+      future: SessionServicerasya().isLoggedInrasya(),
       builder: (context, snapshot) {
         // loading screen
         if (!snapshot.hasData) {
