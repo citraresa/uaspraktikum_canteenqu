@@ -82,6 +82,8 @@ final List<ProductCitra> menuDummy = [
       stock: 300,
       imageUrl: "https://images.tokopedia.net/img/JFrBQq/2024/7/3/76eb14c3-f86c-41c8-910f-27cdf546dcf6.jpg",
       
+
+      
     ),
 ];
 
