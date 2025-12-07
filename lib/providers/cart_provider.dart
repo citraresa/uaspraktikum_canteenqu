@@ -96,6 +96,7 @@ class CartProviderNazwa with ChangeNotifier {
       final qty = cartItem.quantity;
 
       await db.runTransaction((trx) async {
+        // mengambil data produk langsung dari Firestore
         final snap = await trx.get(productRef);
         if (!snap.exists) throw Exception("Produk tidak ditemukan");
         final data = snap.data() as Map<String, dynamic>;
@@ -116,4 +117,3 @@ class CartProviderNazwa with ChangeNotifier {
 
 
 // UPDATE
-// ppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp
