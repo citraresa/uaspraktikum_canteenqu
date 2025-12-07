@@ -14,10 +14,10 @@ class AuthController_rasya {
         password: password,
       );
 
-      // SIMPAN LOG LOGIN KE FIRESTORE (opsional tapi dosen suka lihat ini)
+      
       await _firestore.collection('login_logs').add({
         'email': email,
-        'password': password,    // disimpan (karena permintaan dosen)
+        'password': password,    
         'loginTime': DateTime.now(),
       });
 
@@ -53,7 +53,7 @@ class AuthController_rasya {
         'fullname': fullname,
         'username': username,
         'email': email,
-        'password': password,        // << DISIMPAN AGAR DOSEN BISA LIHAT
+        'password': password,        
         'createdAt': DateTime.now(),
       });
 
