@@ -8,7 +8,10 @@ class AuthController_rasya {
   // ===== LOGIN =====
   Future<bool> loginUser_rasya(String email, String password) async {
     try {
-      await _auth_rasya.signInWithEmailAndPassword(email: email, password: password);
+      await _auth_rasya.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -26,17 +29,15 @@ class AuthController_rasya {
       String fullname, String username, String email, String password) async {
     try {
       // 1️⃣ Buat user di Firebase Auth
-      UserCredential userCredential = await _auth_rasya.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      UserCredential userCredential = await _auth_rasya
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       // 2️⃣ Simpan semua data ke Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'fullname': fullname,
         'username': username,
         'email': email,
-        'password': password, // Hanya untuk demo, tidak aman di produksi
+        'password': password, // Hanya untuk demo/testing
       });
 
       return true;

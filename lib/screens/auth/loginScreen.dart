@@ -35,25 +35,27 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
               children: [
                 Image.asset('assets/images/canteenqu.png', height: 150),
                 const SizedBox(height: 10),
-                Text(
-                  "WELCOME!",
-                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: kPrimaryBlue),
-                ),
-                Text(
-                  "Sign in to continue",
-                  style: TextStyle(color: kPrimaryBlue.withOpacity(0.7)),
-                ),
+                Text("WELCOME!",
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: kPrimaryBlue)),
+                Text("Sign in to continue",
+                    style: TextStyle(color: kPrimaryBlue.withOpacity(0.7))),
                 const SizedBox(height: 40),
-                // Email
+
+                // EMAIL
                 TextFormField(
                   controller: _emailController_maulina,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
                     labelText: "Email",
                     labelStyle: TextStyle(color: kPrimaryBlue),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
+                    focusedBorder:
+                        OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
                     enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4))),
+                        borderSide:
+                            BorderSide(color: kPrimaryBlue.withOpacity(0.4))),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
@@ -62,16 +64,19 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
                   },
                 ),
                 const SizedBox(height: 20),
-                // Password
+
+                // PASSWORD
                 TextFormField(
                   controller: _passwordController_maulina,
                   obscureText: true,
                   decoration: InputDecoration(
                     labelText: "Password",
                     labelStyle: TextStyle(color: kPrimaryBlue),
-                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
+                    focusedBorder:
+                        OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
                     enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4))),
+                        borderSide:
+                            BorderSide(color: kPrimaryBlue.withOpacity(0.4))),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'Password tidak boleh kosong';
@@ -80,16 +85,17 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
                   },
                 ),
                 const SizedBox(height: 30),
+
                 // LOGIN BUTTON
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: kPrimaryBlue,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                    ),
+                        backgroundColor: kPrimaryBlue,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12))),
                     onPressed: _loading_rasya ? null : loginRasya,
                     child: _loading_rasya
                         ? const CircularProgressIndicator(color: Colors.white)
@@ -97,6 +103,7 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
                   ),
                 ),
                 const SizedBox(height: 10),
+
                 // REGISTER BUTTON
                 SizedBox(
                   width: double.infinity,
@@ -104,7 +111,8 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => const RegisterScreenMaulina()),
+                        MaterialPageRoute(
+                            builder: (context) => const RegisterScreenMaulina()),
                       );
                     },
                     child: const Text("Register"),
@@ -118,6 +126,7 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
     );
   }
 
+  // LOGIN FUNCTION
   Future<void> loginRasya() async {
     if (!_formKey_rasya.currentState!.validate()) return;
 
@@ -128,16 +137,14 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
 
     try {
       bool success = await AuthController_rasya().loginUser_rasya(email, password);
-
       if (success) {
         await SessionServicerasya().saveSessionrasya(true);
         Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const HomeScreenMaulina()),
-        );
+            context, MaterialPageRoute(builder: (context) => const HomeScreenMaulina()));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Login Error: $e")));
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Login Error: $e")));
     } finally {
       setState(() => _loading_rasya = false);
     }
