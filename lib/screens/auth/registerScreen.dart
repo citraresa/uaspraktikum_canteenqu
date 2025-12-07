@@ -20,10 +20,10 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
 
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
-  bool _loading_rasya = false;
+  bool _loadingrasya = false;
 
   // REGISTER FUNCTION
-  Future<void> _register_rasya() async {
+  Future<void> _registerrasya() async {
     if (!_formKey_rasya.currentState!.validate()) return;
 
     String fullname = _fullnameController_maulina.text.trim();
@@ -31,27 +31,34 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
     String email = _emailController_rasya.text.trim();
     String password = _passwordController_maulina.text.trim();
 
-    setState(() => _loading_rasya = true);
+    setState(() => _loadingrasya = true);
 
     try {
-      bool success = await AuthController_rasya()
-          .registerUser_rasya(fullname, username, email, password);
+      bool success = await AuthControllerrasya().registerUserrasya(
+        fullname,
+        username,
+        email,
+        password,
+      );
 
       if (success) {
         if (!mounted) return;
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const LoginScreenMaulina()));
-        ScaffoldMessenger.of(context)
-            .showSnackBar(const SnackBar(content: Text("Registrasi berhasil, silakan login!")));
+          context,
+          MaterialPageRoute(builder: (_) => const LoginScreenMaulina()),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Registrasi berhasil, silakan login!")),
+        );
       }
     } catch (e) {
-      _showError_rasya(e.toString());
+      _showErrorrasya(e.toString());
     } finally {
-      setState(() => _loading_rasya = false);
+      setState(() => _loadingrasya = false);
     }
   }
 
-  void _showError_rasya(String msg) {
+  void _showErrorrasya(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
   }
 
@@ -86,12 +93,14 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                       borderSide: BorderSide(color: kPrimaryBlue),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                      borderSide: BorderSide(
+                        color: kPrimaryBlue.withOpacity(0.4),
+                      ),
                     ),
                   ),
-                  validator: (value) =>
-                      (value == null || value.isEmpty) ? 'Fullname tidak boleh kosong' : null,
+                  validator: (value) => (value == null || value.isEmpty)
+                      ? 'Fullname tidak boleh kosong'
+                      : null,
                 ),
                 const SizedBox(height: 20),
 
@@ -99,15 +108,20 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                 TextFormField(
                   controller: _usernameController_maulina,
                   decoration: InputDecoration(
-                      labelText: 'Username',
-                      labelStyle: TextStyle(color: kPrimaryBlue),
-                      focusedBorder:
-                          OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: kPrimaryBlue.withOpacity(0.4)))),
+                    labelText: 'Username',
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: kPrimaryBlue.withOpacity(0.4),
+                      ),
+                    ),
+                  ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Username tidak boleh kosong';
+                    if (value == null || value.isEmpty)
+                      return 'Username tidak boleh kosong';
                     return null;
                   },
                 ),
@@ -117,17 +131,24 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                 TextFormField(
                   controller: _emailController_rasya,
                   decoration: InputDecoration(
-                      labelText: 'Email',
-                      labelStyle: TextStyle(color: kPrimaryBlue),
-                      focusedBorder:
-                          OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: kPrimaryBlue.withOpacity(0.4)))),
+                    labelText: 'Email',
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: kPrimaryBlue.withOpacity(0.4),
+                      ),
+                    ),
+                  ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
-                    if (!value.contains('@')) return 'Format email tidak valid';
+                    if (value == null || value.isEmpty)
+                      return 'Email tidak boleh kosong';
+                    final emailRegex = RegExp(r'^[\w-\.]+@gmail\.com$');
+                    if (!emailRegex.hasMatch(value))
+                      return 'Email harus menggunakan format @gmail.com';
                     return null;
                   },
                 ),
@@ -137,16 +158,21 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                 TextFormField(
                   controller: _passwordController_maulina,
                   decoration: InputDecoration(
-                      labelText: 'Password',
-                      labelStyle: TextStyle(color: kPrimaryBlue),
-                      focusedBorder:
-                          OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: kPrimaryBlue.withOpacity(0.4)))),
+                    labelText: 'Password',
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: kPrimaryBlue.withOpacity(0.4),
+                      ),
+                    ),
+                  ),
                   obscureText: true,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Password tidak boleh kosong';
+                    if (value == null || value.isEmpty)
+                      return 'Password tidak boleh kosong';
                     if (value.length < 6) return 'Password minimal 6 karakter';
                     return null;
                   },
@@ -157,17 +183,23 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                 TextFormField(
                   controller: _confirmPasswordController_maulina,
                   decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      labelStyle: TextStyle(color: kPrimaryBlue),
-                      focusedBorder:
-                          OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: kPrimaryBlue.withOpacity(0.4)))),
+                    labelText: 'Confirm Password',
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: kPrimaryBlue.withOpacity(0.4),
+                      ),
+                    ),
+                  ),
                   obscureText: true,
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Confirm Password tidak boleh kosong';
-                    if (value != _passwordController_maulina.text) return 'Password dan Confirm Password tidak sama';
+                    if (value == null || value.isEmpty)
+                      return 'Confirm Password tidak boleh kosong';
+                    if (value != _passwordController_maulina.text)
+                      return 'Password dan Confirm Password tidak sama';
                     return null;
                   },
                 ),
@@ -178,15 +210,20 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                        backgroundColor: kPrimaryBlue,
-                        foregroundColor: Colors.white,
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12))),
-                    onPressed: _loading_rasya ? null : _register_rasya,
-                    child: _loading_rasya
+                      backgroundColor: kPrimaryBlue,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                    ),
+                    onPressed: _loadingrasya ? null : _registerrasya,
+                    child: _loadingrasya
                         ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text('Register', style: TextStyle(fontSize: 16)),
+                        : const Text(
+                            'Register',
+                            style: TextStyle(fontSize: 16),
+                          ),
                   ),
                 ),
 
@@ -194,13 +231,22 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text("Already have an account?", style: TextStyle(color: kPrimaryBlue)),
+                    Text(
+                      "Already have an account?",
+                      style: TextStyle(color: kPrimaryBlue),
+                    ),
                     TextButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        child: Text("Sign In",
-                            style: TextStyle(color: kPrimaryBlue, fontWeight: FontWeight.bold)))
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Sign In",
+                        style: TextStyle(
+                          color: kPrimaryBlue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ],
