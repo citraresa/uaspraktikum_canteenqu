@@ -22,7 +22,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
   bool _loadingrasya = false;
 
-  // REGISTER FUNCTION
+  // sudah fix
   Future<void> _registerrasya() async {
     if (!_formKey_rasya.currentState!.validate()) return;
 
