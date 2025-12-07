@@ -4,6 +4,8 @@ import 'package:canteenqu/services/session_service_rasya.dart';
 import 'package:flutter/material.dart';
 import 'registerScreen.dart';
 
+// FIXXXX
+
 class LoginScreenMaulina extends StatefulWidget {
   const LoginScreenMaulina({super.key});
 
@@ -14,12 +16,10 @@ class LoginScreenMaulina extends StatefulWidget {
 class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
   final _emailController_maulina = TextEditingController();
   final _passwordController_maulina = TextEditingController();
-  final _formKey_rasya = GlobalKey<FormState>(); // 🔹 Form key
+  final _formKeyrasya = GlobalKey<FormState>(); // 🔹 Form key
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
-  bool _loading_rasya = false;
-
-  // sudah fix
+  bool _loadingrasya = false;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +29,7 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Form(
-            key: _formKey_rasya,
+            key: _formKeyrasya,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -108,8 +108,8 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
                         padding: const EdgeInsets.symmetric(vertical: 14),
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12))),
-                    onPressed: _loading_rasya ? null : loginRasya,
-                    child: _loading_rasya
+                    onPressed: _loadingrasya ? null : loginRasya,
+                    child: _loadingrasya
                         ? const CircularProgressIndicator(color: Colors.white)
                         : const Text("Login"),
                   ),
@@ -141,24 +141,16 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
 
  // LOGIN FUNCTION
   Future<void> loginRasya() async {
-    if (!_formKey_rasya.currentState!.validate()) return;
+    if (!_formKeyrasya.currentState!.validate()) return;
 
     final email = _emailController_maulina.text.trim();
     final password = _passwordController_maulina.text.trim();
 
-    setState(() => _loading_rasya = true);
+    setState(() => _loadingrasya = true);
 
     try {
       bool success =
-<<<<<<< HEAD
-<<<<<<< HEAD
-          await AuthController_rasya().loginUser_rasya(email, password);
-=======
           await AuthControllerrasya().loginUserrasya(email, password);
->>>>>>> 2bce225e0e110937dbd3b83bb65583e1054eb7c4
-=======
-          await AuthControllerrasya().loginUserrasya(email, password);
->>>>>>> 0b724007d416f43e7391bb978a8331cad4bae681
       if (success) {
         await SessionServicerasya().saveSessionrasya(true);
         if (!mounted) return;
@@ -173,7 +165,7 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
           .showSnackBar(SnackBar(content: Text("Login Error: $e")));
     } finally {
       if (mounted) {
-        setState(() => _loading_rasya = false);
+        setState(() => _loadingrasya = false);
       }
     }
   }

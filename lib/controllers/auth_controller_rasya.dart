@@ -1,7 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-// sudah fix
+// FIXXX
+
 class AuthControllerrasya {
   final FirebaseAuth _authrasya = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -25,20 +26,10 @@ class AuthControllerrasya {
     }
   }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-  Future<bool> registerUser_rasya(
-    String fullName,
-=======
+  // ===== REGISTER =====
   Future<bool> registerUserrasya(
     String fullName,
     String username,
->>>>>>> 2bce225e0e110937dbd3b83bb65583e1054eb7c4
-=======
-  Future<bool> registerUserrasya(
-    String fullName,
-    String username,
->>>>>>> 0b724007d416f43e7391bb978a8331cad4bae681
     String email,
     String password,
   ) async {
@@ -51,7 +42,7 @@ class AuthControllerrasya {
         'fullname': fullName,
         'username': username,
         'email': email,
-        'password': password, // Hanya untuk demo/testing
+        'password': password, 
       });
 
       return true;
