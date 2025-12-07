@@ -148,7 +148,11 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
 
     try {
       bool success =
+<<<<<<< HEAD
           await AuthController_rasya().loginUser_rasya(email, password);
+=======
+          await AuthControllerrasya().loginUserrasya(email, password);
+>>>>>>> 2bce225e0e110937dbd3b83bb65583e1054eb7c4
       if (success) {
         await SessionServicerasya().saveSessionrasya(true);
         if (!mounted) return;
