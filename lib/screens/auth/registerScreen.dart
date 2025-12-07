@@ -16,14 +16,12 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
   final _passwordController_maulina = TextEditingController();
   final _confirmPasswordController_maulina = TextEditingController();
 
-  final _formKey_rasya = GlobalKey<FormState>(); // Form key register
-
+  final _formKey_rasya = GlobalKey<FormState>();
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
 
   bool _loading_rasya = false;
 
-  // ================= REGISTER FUNCTION =================
   Future<void> _register_rasya() async {
     if (!_formKey_rasya.currentState!.validate()) return;
 
@@ -36,7 +34,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
 
     try {
       bool success = await AuthController_rasya()
-          .registerUser_rasya(email, password, username);
+          .registerUser_rasya(fullname, username, email, password);
 
       if (success) {
         if (!mounted) return;
@@ -50,19 +48,12 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
         );
       }
     } catch (e) {
-      _showError_rasya(e.toString());
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     } finally {
       setState(() => _loading_rasya = false);
     }
   }
 
-  void _showError_rasya(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text(msg)),
-    );
-  }
-
-  // ================= UI =================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -75,190 +66,111 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "CREATE ACCOUNT",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: kPrimaryBlue,
-                  ),
-                ),
-                Text(
-                  "Join us today",
-                  style: TextStyle(color: kPrimaryBlue.withOpacity(0.7)),
-                ),
+                Text("CREATE ACCOUNT",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold, color: kPrimaryBlue)),
+                Text("Join us today", style: TextStyle(color: kPrimaryBlue.withOpacity(0.7))),
                 const SizedBox(height: 40),
-
                 // Fullname
                 TextFormField(
                   controller: _fullnameController_maulina,
                   decoration: InputDecoration(
-                    labelText: 'Fullname',
-                    labelStyle: TextStyle(color: kPrimaryBlue),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: kPrimaryBlue),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Fullname tidak boleh kosong';
-                    }
-                    return null;
-                  },
+                      labelText: 'Fullname',
+                      labelStyle: TextStyle(color: kPrimaryBlue),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)))),
+                  validator: (value) => (value == null || value.isEmpty) ? 'Fullname tidak boleh kosong' : null,
                 ),
                 const SizedBox(height: 20),
-
                 // Username
                 TextFormField(
                   controller: _usernameController_maulina,
                   decoration: InputDecoration(
-                    labelText: 'Username',
-                    labelStyle: TextStyle(color: kPrimaryBlue),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: kPrimaryBlue),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
-                    ),
-                  ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Username tidak boleh kosong';
-                    }
-                    return null;
-                  },
+                      labelText: 'Username',
+                      labelStyle: TextStyle(color: kPrimaryBlue),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)))),
+                  validator: (value) => (value == null || value.isEmpty) ? 'Username tidak boleh kosong' : null,
                 ),
                 const SizedBox(height: 20),
-
                 // Email
                 TextFormField(
                   controller: _emailController_rasya,
                   decoration: InputDecoration(
-                    labelText: 'Email',
-                    labelStyle: TextStyle(color: kPrimaryBlue),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: kPrimaryBlue),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
-                    ),
-                  ),
+                      labelText: 'Email',
+                      labelStyle: TextStyle(color: kPrimaryBlue),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)))),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Email tidak boleh kosong';
-                    }
-                    if (!value.contains('@')) {
-                      return 'Format email tidak valid';
-                    }
+                    if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
+                    if (!value.contains('@')) return 'Format email tidak valid';
                     return null;
                   },
                 ),
                 const SizedBox(height: 20),
-
                 // Password
                 TextFormField(
                   controller: _passwordController_maulina,
                   decoration: InputDecoration(
-                    labelText: 'Password',
-                    labelStyle: TextStyle(color: kPrimaryBlue),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: kPrimaryBlue),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
-                    ),
-                  ),
+                      labelText: 'Password',
+                      labelStyle: TextStyle(color: kPrimaryBlue),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)))),
                   obscureText: true,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Password tidak boleh kosong';
-                    }
-                    if (value.length < 6) {
-                      return 'Password minimal 6 karakter';
-                    }
+                    if (value == null || value.isEmpty) return 'Password tidak boleh kosong';
+                    if (value.length < 6) return 'Password minimal 6 karakter';
                     return null;
                   },
                 ),
                 const SizedBox(height: 20),
-
                 // Confirm Password
                 TextFormField(
                   controller: _confirmPasswordController_maulina,
                   decoration: InputDecoration(
-                    labelText: 'Confirm Password',
-                    labelStyle: TextStyle(color: kPrimaryBlue),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: kPrimaryBlue),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
-                    ),
-                  ),
+                      labelText: 'Confirm Password',
+                      labelStyle: TextStyle(color: kPrimaryBlue),
+                      focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
+                      enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)))),
                   obscureText: true,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Confirm Password tidak boleh kosong';
-                    }
-                    if (value != _passwordController_maulina.text) {
-                      return 'Password dan Confirm Password tidak sama';
-                    }
+                    if (value == null || value.isEmpty) return 'Confirm Password tidak boleh kosong';
+                    if (value != _passwordController_maulina.text) return 'Password dan Confirm Password tidak sama';
                     return null;
                   },
                 ),
                 const SizedBox(height: 30),
-
-                // Tombol Register
+                // REGISTER BUTTON
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: kPrimaryBlue,
-                      foregroundColor: Colors.white,
-                      padding: const EdgeInsets.symmetric(vertical: 14),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    onPressed:
-                        _loading_rasya ? null : _register_rasya, // 🔹 Fungsi controller
+                        backgroundColor: kPrimaryBlue,
+                        foregroundColor: Colors.white,
+                        padding: const EdgeInsets.symmetric(vertical: 14),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+                    onPressed: _loading_rasya ? null : _register_rasya,
                     child: _loading_rasya
                         ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text(
-                            'Register',
-                            style: TextStyle(fontSize: 16),
-                          ),
+                        : const Text('Register', style: TextStyle(fontSize: 16)),
                   ),
                 ),
-
                 const SizedBox(height: 10),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Already have an account?",
-                      style: TextStyle(color: kPrimaryBlue),
-                    ),
+                    Text("Already have an account?", style: TextStyle(color: kPrimaryBlue)),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                          color: kPrimaryBlue,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      child: Text("Sign In",
+                          style: TextStyle(color: kPrimaryBlue, fontWeight: FontWeight.bold)),
                     )
                   ],
                 ),
