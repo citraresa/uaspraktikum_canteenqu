@@ -5,10 +5,11 @@ class AuthController_rasya {
   final FirebaseAuth _auth_rasya = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // LOGIN
+  // ================= LOGIN =================
   Future<bool> loginUser_rasya(String email, String password) async {
     try {
-      await _auth_rasya.signInWithEmailAndPassword(email: email, password: password);
+      await _auth_rasya.signInWithEmailAndPassword(
+          email: email, password: password);
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -21,21 +22,23 @@ class AuthController_rasya {
     }
   }
 
-  // REGISTER
+  // ================= REGISTER =================
   Future<bool> registerUser_rasya(
       String fullname, String username, String email, String password) async {
     try {
-      UserCredential userCredential = await _auth_rasya.createUserWithEmailAndPassword(
+      // Buat user di Firebase Auth
+      UserCredential userCredential =
+          await _auth_rasya.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // Simpan semua field ke Firestore
+      // Simpan data user di Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'fullname': fullname,
         'username': username,
         'email': email,
-        'password': password, 
+        'password': password,
       });
 
       return true;
@@ -48,7 +51,7 @@ class AuthController_rasya {
     }
   }
 
-  // LOGOUT
+  // ================= LOGOUT =================
   Future<void> logoutUser_rasya() async {
     await _auth_rasya.signOut();
   }
