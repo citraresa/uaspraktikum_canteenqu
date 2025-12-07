@@ -1,15 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:canteenqu/models/userKt.dart';
 
-class AuthController_rasya {
-  final FirebaseAuth _auth_rasya = FirebaseAuth.instance;
+class AuthControllerrasya {
+  final FirebaseAuth _authrasya = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   // ===== LOGIN =====
-  Future<bool> loginUser_rasya(String email, String password) async {
+  Future<bool> loginUserrasya(String email, String password) async {
     try {
-      await _auth_rasya.signInWithEmailAndPassword(
+      await _authrasya.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -20,26 +19,27 @@ class AuthController_rasya {
       } else if (e.code == 'wrong-password') {
         throw 'Password salah';
       } else {
-        throw Error();
+        throw e.message ?? 'Terjadi kesalahan login';
       }
     }
   }
 
-  Future<bool> registerUser_rasya(
+  Future<bool> registerUserrasya(
+    String fullName,
+    String username,
     String email,
     String password,
-    String username,
   ) async {
     try {
-      UserCredential userCredential = await _auth_rasya
+      UserCredential userCredential = await _authrasya
           .createUserWithEmailAndPassword(email: email, password: password);
 
-      // 2️⃣ Simpan semua data ke Firestore
+      // Simpan semua data ke Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        'fullname': fullname,
+        'fullname': fullName,
         'username': username,
         'email': email,
-        'password': password, // Hanya untuk demo, tidak aman di produksi
+        'password': password, // Hanya untuk demo/testing
       });
 
       return true;
@@ -47,13 +47,13 @@ class AuthController_rasya {
       if (e.code == 'email-already-in-use') {
         throw 'Email sudah terdaftar';
       } else {
-        throw Error();
+        throw e.message ?? 'Terjadi kesalahan registrasi';
       }
     }
   }
 
   // ===== LOGOUT =====
-  Future<void> logoutUser_rasya() async {
-    await _auth_rasya.signOut();
+  Future<void> logoutUserrasya() async {
+    await _authrasya.signOut();
   }
 }
