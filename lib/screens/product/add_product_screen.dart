@@ -9,7 +9,7 @@ class AddProductScreen extends StatefulWidget {
 }
 
 class _AddProductScreenState extends State<AddProductScreen> {
-  // Controller
+  // Controller input form
   final TextEditingController nameC = TextEditingController();
   final TextEditingController priceC = TextEditingController();
   final TextEditingController stockC = TextEditingController();
@@ -39,7 +39,8 @@ class _AddProductScreenState extends State<AddProductScreen> {
         'imageUrl': imageC.text,
         'created_at': Timestamp.now(),
       };
-
+      
+      // Simpan ke Firestore
       await FirebaseFirestore.instance
           .collection('products')
           .add(newProduct);
