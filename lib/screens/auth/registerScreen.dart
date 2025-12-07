@@ -3,20 +3,19 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'loginScreen.dart';
 
-class RegisterScreenMaulina extends StatefulWidget {
+class RegisterScreenMaulina extends StatefulWidget {  
   const RegisterScreenMaulina({super.key});
 
   @override
-  State<RegisterScreenMaulina> createState() => _RegisterScreenMaulinaState();
-}
+  State<RegisterScreenMaulina> createState() => _RegisterScreenMaulinaState(); 
+} 
+class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> { 
 
-class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
-
-  final _fullnameController_Maulina = TextEditingController();
+  final _fullnameController_Maulina = TextEditingController(); 
   final _usernameController_Maulina = TextEditingController();
   final _emailController_rasya = TextEditingController();
-  final _passwordController_Maulina = TextEditingController();
-  final _confirmPasswordController_Maulina = TextEditingController();
+  final _passwordController_Maulina = TextEditingController(); //variabel controller untuk mengambil input password
+  final _confirmPasswordController_Maulina = TextEditingController(); //variabel controller untuk mengambil input confirm password
 
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
@@ -88,7 +87,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
     );
   }
 
-  // ---------------- UI -----------------
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -202,7 +201,6 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
               ),
 
               const SizedBox(height: 30),
-
               // Tombol Register
               SizedBox(
                 width: double.infinity,

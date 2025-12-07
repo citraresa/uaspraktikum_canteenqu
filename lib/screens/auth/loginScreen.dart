@@ -4,6 +4,7 @@ import '../../screens/home/homeScreen.dart';
 import '../../controllers/auth_controller_rasya.dart';
 import '../../services/session_service_rasya.dart';
 
+
 class LoginScreenMaulina extends StatefulWidget {
   const LoginScreenMaulina({super.key});
 
@@ -11,9 +12,9 @@ class LoginScreenMaulina extends StatefulWidget {
   State<LoginScreenMaulina> createState() => _LoginScreenMaulinaState();
 }
 
-class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
-  final _emailController_rasya = TextEditingController();
-  final _passwordControllerMaulina = TextEditingController();
+ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
+  final _emailController_rasya = TextEditingController(); //variabel controller untuk mengambil input email
+  final _passwordControllerMaulina = TextEditingController(); //variabel controller untuk mengambil input password
 
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
@@ -21,7 +22,7 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
   String? _emailErrorText;
   String? _passwordErrorText;
 
-  // VALIDASI EMAIL
+  // VALIDASI EMAIL (Rasya)
   String? _validateEmail(String? email) {
     if (email == null || email.isEmpty) {
       return 'Email tidak boleh kosong';
@@ -32,7 +33,7 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
     return null;
   }
 
-  // VALIDASI PASSWORD
+  // VALIDASI PASSWORD(Rasya)
   String? _validatePassword(String? pass) {
     if (pass == null || pass.isEmpty) {
       return 'Password tidak boleh kosong';
@@ -42,35 +43,35 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
     }
     return null;
   }
-
+//anggota 2
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
-      backgroundColor: kWhite,
-      body: Center(
-        child: SingleChildScrollView(
+      backgroundColor: kWhite, 
+      body: Center( 
+        child: SingleChildScrollView( 
           padding: const EdgeInsets.all(16),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center, 
             children: [
-              Image.asset('assets/images/canteenqu.png', height: 150),
-              const SizedBox(height: 10),
+              Image.asset('assets/images/canteenqu.png', height: 150), 
+              const SizedBox(height: 10), 
 
+            //tampilan welcome 
               Text(
                 "WELCOME!",
                 style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 22, 
+                  fontWeight: FontWeight.bold, 
                   color: kPrimaryBlue,
                 ),
               ),
               Text(
                 "Sign in to continue",
-                style: TextStyle(color: kPrimaryBlue.withOpacity(0.7)),
+                style: TextStyle(color: kPrimaryBlue.withOpacity(0.7)), 
               ),
 
-              const SizedBox(height: 40),
-
+              const SizedBox(height: 40), 
               // EMAIL
               TextField(
                 controller: _emailController_rasya,
@@ -148,7 +149,7 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
                           .loginUser_rasya(email, password);
 
                       if (success) {
-                        // SIMPAN SESSION
+                        // SIMPAN SESSION(rasya)
                         await SessionService_rasya().saveSession_rasya(true);
 
                         // NAVIGASI pushReplacement
