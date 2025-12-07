@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '/controllers/auth_controller_rasya.dart';
+import 'package:canteenqu/controllers/auth_controller_rasya.dart';
 import 'loginScreen.dart';
 
 class RegisterScreenMaulina extends StatefulWidget {
@@ -16,7 +16,8 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
   final _passwordController_maulina = TextEditingController();
   final _confirmPasswordController_maulina = TextEditingController();
 
-  final _formKey_rasya = GlobalKey<FormState>();
+  final _formKey_rasya = GlobalKey<FormState>(); // Form key register
+
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
   bool _loading_rasya = false;
@@ -79,17 +80,18 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                 TextFormField(
                   controller: _fullnameController_maulina,
                   decoration: InputDecoration(
-                      labelText: 'Fullname',
-                      labelStyle: TextStyle(color: kPrimaryBlue),
-                      focusedBorder:
-                          OutlineInputBorder(borderSide: BorderSide(color: kPrimaryBlue)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(color: kPrimaryBlue.withOpacity(0.4)))),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) return 'Fullname tidak boleh kosong';
-                    return null;
-                  },
+                    labelText: 'Fullname',
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                    ),
+                  ),
+                  validator: (value) =>
+                      (value == null || value.isEmpty) ? 'Fullname tidak boleh kosong' : null,
                 ),
                 const SizedBox(height: 20),
 

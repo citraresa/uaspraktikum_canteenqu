@@ -24,17 +24,19 @@ class AuthController_rasya {
     }
   }
 
-  // ===== REGISTER =====
   Future<bool> registerUser_rasya(
-      String fullname, String username, String email, String password) async {
+    String fullName,
+    String email,
+    String password,
+    String username,
+  ) async {
     try {
-      // 1️⃣ Buat user di Firebase Auth
       UserCredential userCredential = await _auth_rasya
           .createUserWithEmailAndPassword(email: email, password: password);
 
       // 2️⃣ Simpan semua data ke Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
-        'fullname': fullname,
+        'fullname': fullName,
         'username': username,
         'email': email,
         'password': password, // Hanya untuk demo/testing
