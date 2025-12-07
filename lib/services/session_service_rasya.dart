@@ -1,23 +1,23 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-class SessionService_rasya {
-    final String _sessionKey_rasya = 'isLoggedIn_rasya';
+class SessionServicerasya {
+    final String _sessionKeyrasya = 'isLoggedIn_rasya';
 
-    // WAJIB: Definisikan fungsi dengan Watermark Code
-    Future<void> saveSession_rasya(bool status) async {
+    // Untuk menyimpan status login (true/false)
+    Future<void> saveSessionrasya(bool status) async {
         final pref = await SharedPreferences.getInstance();
-        await pref.setBool(_sessionKey_rasya, status);
+        await pref.setBool(_sessionKeyrasya, status);
     }
     
-    // Fungsi lain (IsLoggedIn) juga wajib ber-watermark
-    Future<bool> isLoggedIn_rasya() async {
+    // Untuk memeriksa apakah user sudah login
+    Future<bool> isLoggedInrasya() async {
         final pref = await SharedPreferences.getInstance();
-        return pref.getBool(_sessionKey_rasya) ?? false;
+        return pref.getBool(_sessionKeyrasya) ?? false;
     }
     
-    // Fungsi Clear Session (untuk Logout)
-    Future<void> clearSession_rasya() async {
+    // Untuk menghapus session (logout)
+    Future<void> clearSessionrasya() async {
         final pref = await SharedPreferences.getInstance();
-        await pref.remove(_sessionKey_rasya);
+        await pref.remove(_sessionKeyrasya);
     }
 }

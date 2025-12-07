@@ -1,6 +1,5 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import '/controllers/auth_controller_rasya.dart';
 import 'loginScreen.dart';
 
 class RegisterScreenMaulina extends StatefulWidget {  
@@ -11,83 +10,72 @@ class RegisterScreenMaulina extends StatefulWidget {
 } 
 class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> { 
 
+<<<<<<< HEAD
   final _fullnameController_Maulina = TextEditingController(); 
   final _usernameController_Maulina = TextEditingController();
   final _emailController_rasya = TextEditingController();
   final _passwordController_Maulina = TextEditingController(); //variabel controller untuk mengambil input password
   final _confirmPasswordController_Maulina = TextEditingController(); //variabel controller untuk mengambil input confirm password
+=======
+class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
+  final _fullnameController_maulina = TextEditingController();
+  final _usernameController_maulina = TextEditingController();
+  final _emailController_rasya = TextEditingController();
+  final _passwordController_maulina = TextEditingController();
+  final _confirmPasswordController_maulina = TextEditingController();
+
+  final _formKey_rasya = GlobalKey<FormState>(); // Form key register
+>>>>>>> fe4441891b47dfa989f352b5491a04c38c3477f9
 
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
 
-  bool _loading = false;
+  bool _loading_rasya = false;
 
-  // REGISTER FUNCTION 
-  Future<void> _register() async {
-    String fullname = _fullnameController_Maulina.text.trim();
-    String username = _usernameController_Maulina.text.trim();
+  // ================= REGISTER FUNCTION =================
+  Future<void> _register_rasya() async {
+    if (!_formKey_rasya.currentState!.validate()) return;
+
+    String fullname = _fullnameController_maulina.text.trim();
+    String username = _usernameController_maulina.text.trim();
     String email = _emailController_rasya.text.trim();
-    String password = _passwordController_Maulina.text.trim();
-    String confirmPassword = _confirmPasswordController_Maulina.text.trim();
+    String password = _passwordController_maulina.text.trim();
 
-    // VALIDASI
-    if (fullname.isEmpty ||
-        username.isEmpty ||
-        email.isEmpty ||
-        password.isEmpty ||
-        confirmPassword.isEmpty) {
-      _showError("Semua field harus diisi");
-      return;
-    }
-
-    if (password != confirmPassword) {
-      _showError("Password dan Confirm Password tidak sama");
-      return;
-    }
-
-    setState(() => _loading = true);
+    setState(() => _loading_rasya = true);
 
     try {
-      // 1. Firebase Auth Register
-      UserCredential userCred = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      bool success = await AuthController_rasya()
+          .registerUser_rasya(email, password, username);
 
-      String uid = userCred.user!.uid;
+      if (success) {
+        if (!mounted) return;
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (_) => const LoginScreenMaulina()),
+        );
 
-      // 2. Simpan data user ke Firestore
-      await FirebaseFirestore.instance.collection("users").doc(uid).set({
-        "fullname": fullname,
-        "username": username,
-        "email": email,
-        "uid": uid,
-        "created_at": DateTime.now(),
-      });
-
-      if (!mounted) return;
-
-      // 3. Redirect ke Login
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (_) => const LoginScreenMaulina()),
-      );
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Registrasi berhasil, silakan login!")),
-      );
-    } on FirebaseAuthException catch (e) {
-      _showError(e.message ?? "Terjadi kesalahan");
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Registrasi berhasil, silakan login!")),
+        );
+      }
+    } catch (e) {
+      _showError_rasya(e.toString());
     } finally {
-      setState(() => _loading = false);
+      setState(() => _loading_rasya = false);
     }
   }
 
-  void _showError(String msg) {
+  void _showError_rasya(String msg) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(msg)),
     );
   }
 
+<<<<<<< HEAD
   
+=======
+  // ================= UI =================
+>>>>>>> fe4441891b47dfa989f352b5491a04c38c3477f9
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -95,58 +83,26 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
       body: Center(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-
-              Text(
-                "CREATE ACCOUNT",
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold,
-                  color: kPrimaryBlue,
-                ),
-              ),
-              Text(
-                "Join us today",
-                style: TextStyle(color: kPrimaryBlue.withOpacity(0.7)),
-              ),
-              const SizedBox(height: 40),
-
-              // Fullname
-              TextFormField(
-                controller: _fullnameController_Maulina,
-                decoration: InputDecoration(
-                  labelText: 'Fullname',
-                  labelStyle: TextStyle(color: kPrimaryBlue),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kPrimaryBlue),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+          child: Form(
+            key: _formKey_rasya,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "CREATE ACCOUNT",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: kPrimaryBlue,
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-
-              // Username
-              TextFormField(
-                controller: _usernameController_Maulina,
-                decoration: InputDecoration(
-                  labelText: 'Username',
-                  labelStyle: TextStyle(color: kPrimaryBlue),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kPrimaryBlue),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
-                  ),
+                Text(
+                  "Join us today",
+                  style: TextStyle(color: kPrimaryBlue.withOpacity(0.7)),
                 ),
-              ),
-              const SizedBox(height: 20),
+                const SizedBox(height: 40),
 
+<<<<<<< HEAD
               // Email
               TextFormField(
                 controller: _emailController_rasya,
@@ -211,42 +167,183 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
+=======
+                // Fullname
+                TextFormField(
+                  controller: _fullnameController_maulina,
+                  decoration: InputDecoration(
+                    labelText: 'Fullname',
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+>>>>>>> fe4441891b47dfa989f352b5491a04c38c3477f9
                     ),
                   ),
-                  onPressed: _loading ? null : _register,
-                  child: _loading
-                      ? const CircularProgressIndicator(color: Colors.white)
-                      : const Text(
-                          'Register',
-                          style: TextStyle(fontSize: 16),
-                        ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Fullname tidak boleh kosong';
+                    }
+                    return null;
+                  },
                 ),
-              ),
+                const SizedBox(height: 20),
 
-              const SizedBox(height: 10),
-
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account?",
-                    style: TextStyle(color: kPrimaryBlue),
+                // Username
+                TextFormField(
+                  controller: _usernameController_maulina,
+                  decoration: InputDecoration(
+                    labelText: 'Username',
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                    ),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Sign In",
-                      style: TextStyle(
-                        color: kPrimaryBlue,
-                        fontWeight: FontWeight.bold,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Username tidak boleh kosong';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+
+                // Email
+                TextFormField(
+                  controller: _emailController_rasya,
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                    ),
+                  ),
+                  keyboardType: TextInputType.emailAddress,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email tidak boleh kosong';
+                    }
+                    if (!value.contains('@')) {
+                      return 'Format email tidak valid';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+
+                // Password
+                TextFormField(
+                  controller: _passwordController_maulina,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                    ),
+                  ),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password tidak boleh kosong';
+                    }
+                    if (value.length < 6) {
+                      return 'Password minimal 6 karakter';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 20),
+
+                // Confirm Password
+                TextFormField(
+                  controller: _confirmPasswordController_maulina,
+                  decoration: InputDecoration(
+                    labelText: 'Confirm Password',
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide:
+                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                    ),
+                  ),
+                  obscureText: true,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Confirm Password tidak boleh kosong';
+                    }
+                    if (value != _passwordController_maulina.text) {
+                      return 'Password dan Confirm Password tidak sama';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 30),
+
+                // Tombol Register
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kPrimaryBlue,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                  )
-                ],
-              ),
-            ],
+                    onPressed:
+                        _loading_rasya ? null : _register_rasya, // 🔹 Fungsi controller
+                    child: _loading_rasya
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text(
+                            'Register',
+                            style: TextStyle(fontSize: 16),
+                          ),
+                  ),
+                ),
+
+                const SizedBox(height: 10),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Already have an account?",
+                      style: TextStyle(color: kPrimaryBlue),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text(
+                        "Sign In",
+                        style: TextStyle(
+                          color: kPrimaryBlue,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

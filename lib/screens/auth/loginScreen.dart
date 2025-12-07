@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'registerScreen.dart';
-import '../../screens/home/homeScreen.dart';
-import '../../controllers/auth_controller_rasya.dart';
-import '../../services/session_service_rasya.dart';
+import '/screens/home/homeScreen.dart';
+import '/controllers/auth_controller_rasya.dart';
+import '/services/session_service_rasya.dart';
 
 
 class LoginScreenMaulina extends StatefulWidget {
@@ -12,13 +12,22 @@ class LoginScreenMaulina extends StatefulWidget {
   State<LoginScreenMaulina> createState() => _LoginScreenMaulinaState();
 }
 
+<<<<<<< HEAD
  class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
   final _emailController_rasya = TextEditingController(); //variabel controller untuk mengambil input email
   final _passwordControllerMaulina = TextEditingController(); //variabel controller untuk mengambil input password
+=======
+class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
+  final _emailController_maulina = TextEditingController();
+  final _passwordController_maulina = TextEditingController();
+
+  final _formKey_rasya = GlobalKey<FormState>(); // 🔹 Form key
+>>>>>>> fe4441891b47dfa989f352b5491a04c38c3477f9
 
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
 
+<<<<<<< HEAD
   String? _emailErrorText;
   String? _passwordErrorText;
 
@@ -44,6 +53,10 @@ class LoginScreenMaulina extends StatefulWidget {
     return null;
   }
 //anggota 2
+=======
+  bool _loading_rasya = false; 
+
+>>>>>>> fe4441891b47dfa989f352b5491a04c38c3477f9
   @override
   Widget build(BuildContext context) { 
     return Scaffold(
@@ -51,6 +64,7 @@ class LoginScreenMaulina extends StatefulWidget {
       body: Center( 
         child: SingleChildScrollView( 
           padding: const EdgeInsets.all(16),
+<<<<<<< HEAD
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center, 
             children: [
@@ -86,62 +100,48 @@ class LoginScreenMaulina extends StatefulWidget {
                     borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
                   ),
                   errorText: _emailErrorText,
-                ),
-              ),
-              const SizedBox(height: 20),
-
-              // PASSWORD
-              TextField(
-                controller: _passwordControllerMaulina,
-                obscureText: true,
-                decoration: InputDecoration(
-                  labelText: "Password",
-                  labelStyle: TextStyle(color: kPrimaryBlue),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kPrimaryBlue),
+=======
+          child: Form(
+            key: _formKey_rasya,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset('assets/images/canteenqu.png', height: 150),
+                const SizedBox(height: 10),
+                Text(
+                  "WELCOME!",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: kPrimaryBlue,
                   ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
-                  ),
-                  errorText: _passwordErrorText,
                 ),
-              ),
+                Text(
+                  "Sign in to continue",
+                  style: TextStyle(color: kPrimaryBlue.withOpacity(0.7)),
+>>>>>>> fe4441891b47dfa989f352b5491a04c38c3477f9
+                ),
+                const SizedBox(height: 40),
 
-              const SizedBox(height: 30),
-
-              // TOMBOL LOGIN
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kPrimaryBlue,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
+                // EMAIL
+                TextFormField(
+                  controller: _emailController_maulina,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    labelText: "Email",
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
                     ),
                   ),
-                  onPressed: () async {
-                    String email = _emailController_rasya.text.trim();
-                    String password = _passwordControllerMaulina.text.trim();
-
-                    // Reset error
-                    setState(() {
-                      _emailErrorText = null;
-                      _passwordErrorText = null;
-                    });
-
-                    // Validasi manual
-                    final emailErr = _validateEmail(email);
-                    final passErr = _validatePassword(password);
-
-                    if (emailErr != null || passErr != null) {
-                      setState(() {
-                        _emailErrorText = emailErr;
-                        _passwordErrorText = passErr;
-                      });
-                      return;
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email tidak boleh kosong';
                     }
+<<<<<<< HEAD
 
                     // LOGIN (Firebase)
                     try {
@@ -165,34 +165,111 @@ class LoginScreenMaulina extends StatefulWidget {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text("Login Error: $e")),
                       );
+=======
+                    if (!value.contains('@') || !value.endsWith('.com')) {
+                      return 'Format email tidak valid';
+>>>>>>> fe4441891b47dfa989f352b5491a04c38c3477f9
                     }
+                    return null;
                   },
-                  child: const Text("Login"),
                 ),
-              ),
+                const SizedBox(height: 20),
 
-              const SizedBox(height: 10),
+                // PASSWORD
+                TextFormField(
+                  controller: _passwordController_maulina,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    labelText: "Password",
+                    labelStyle: TextStyle(color: kPrimaryBlue),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                    ),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Password tidak boleh kosong';
+                    }
+                    if (value.length < 6) {
+                      return 'Password minimal 6 karakter';
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 30),
 
-              // TOMBOL REGISTER
-              SizedBox(
-                width: double.infinity,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const RegisterScreenMaulina(),
+                // LOGIN BUTTON
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: kPrimaryBlue,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                    );
-                  },
-                  child: const Text("Register"),
+                    ),
+                    onPressed: _loading_rasya ? null : loginRasya,
+                    child: _loading_rasya
+                        ? const CircularProgressIndicator(color: Colors.white)
+                        : const Text("Login"),
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 10),
+
+                // REGISTER BUTTON
+                SizedBox(
+                  width: double.infinity,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const RegisterScreenMaulina(),
+                        ),
+                      );
+                    },
+                    child: const Text("Register"),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  // LOGIN FUNCTION menggunakan AuthController
+  Future<void> loginRasya() async {
+    if (!_formKey_rasya.currentState!.validate()) return;
+
+    final email = _emailController_maulina.text.trim();
+    final password = _passwordController_maulina.text.trim();
+
+    setState(() => _loading_rasya = true);
+
+    try {
+      bool success = await AuthController_rasya().loginUser_rasya(email, password);
+
+      if (success) {
+        await SessionServicerasya().saveSessionrasya(true);
+
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreenMaulina()),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Login Error: $e")),
+      );
+    } finally {
+      setState(() => _loading_rasya = false);
+    }
   }
 }
