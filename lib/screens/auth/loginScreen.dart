@@ -4,6 +4,7 @@ import '/screens/home/homeScreen.dart';
 import '/controllers/auth_controller_rasya.dart';
 import '/services/session_service_rasya.dart';
 
+
 class LoginScreenMaulina extends StatefulWidget {
   const LoginScreenMaulina({super.key});
 
@@ -14,19 +15,20 @@ class LoginScreenMaulina extends StatefulWidget {
 class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
   final _emailController_maulina = TextEditingController();
   final _passwordController_maulina = TextEditingController();
-  final _formKey_rasya = GlobalKey<FormState>();
+
+  final _formKey_rasya = GlobalKey<FormState>(); // 🔹 Form key
 
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
 
-  bool _loading_rasya = false;
+  bool _loading_rasya = false; 
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
-      backgroundColor: kWhite,
-      body: Center(
-        child: SingleChildScrollView(
+      backgroundColor: kWhite, 
+      body: Center( 
+        child: SingleChildScrollView( 
           padding: const EdgeInsets.all(16),
           child: Form(
             key: _formKey_rasya,
@@ -56,8 +58,12 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
                         borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4))),
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
-                    if (!value.contains('@') || !value.endsWith('.com')) return 'Format email tidak valid';
+                    if (value == null || value.isEmpty) {
+                      return 'Email tidak boleh kosong';
+                    }
+                    if (!value.contains('@') || !value.endsWith('.com')) {
+                      return 'Format email tidak valid';
+                    }
                     return null;
                   },
                 ),

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:canteenqu/models/userKt.dart';
 
 class AuthController_rasya {
   final FirebaseAuth _auth_rasya = FirebaseAuth.instance;
@@ -8,7 +9,10 @@ class AuthController_rasya {
   // ===== LOGIN =====
   Future<bool> loginUser_rasya(String email, String password) async {
     try {
-      await _auth_rasya.signInWithEmailAndPassword(email: email, password: password);
+      await _auth_rasya.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -21,15 +25,14 @@ class AuthController_rasya {
     }
   }
 
-  // ===== REGISTER =====
   Future<bool> registerUser_rasya(
-      String fullname, String username, String email, String password) async {
+    String email,
+    String password,
+    String username,
+  ) async {
     try {
-      // 1️⃣ Buat user di Firebase Auth
-      UserCredential userCredential = await _auth_rasya.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
+      UserCredential userCredential = await _auth_rasya
+          .createUserWithEmailAndPassword(email: email, password: password);
 
       // 2️⃣ Simpan semua data ke Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({

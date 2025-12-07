@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import '/controllers/auth_controller_rasya.dart';
 import 'loginScreen.dart';
 
-class RegisterScreenMaulina extends StatefulWidget {
+class RegisterScreenMaulina extends StatefulWidget {  
   const RegisterScreenMaulina({super.key});
 
   @override
-  State<RegisterScreenMaulina> createState() => _RegisterScreenMaulinaState();
-}
+  State<RegisterScreenMaulina> createState() => _RegisterScreenMaulinaState(); 
+} 
+class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> { 
 
 class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
   final _fullnameController_maulina = TextEditingController();
@@ -16,7 +17,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
   final _passwordController_maulina = TextEditingController();
   final _confirmPasswordController_maulina = TextEditingController();
 
-  final _formKey_rasya = GlobalKey<FormState>();
+  final _formKey_rasya = GlobalKey<FormState>(); // Form key register
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
 
@@ -61,6 +62,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
     );
   }
 
+  // ================= UI =================
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,7 +99,8 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                       borderSide: BorderSide(color: kPrimaryBlue),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                      borderSide:
+                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
                     ),
                   ),
                   validator: (value) =>
