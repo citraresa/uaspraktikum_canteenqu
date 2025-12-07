@@ -25,6 +25,7 @@ class AuthControllerrasya {
   }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
   Future<bool> registerUser_rasya(
     String fullName,
 =======
@@ -32,6 +33,11 @@ class AuthControllerrasya {
     String fullName,
     String username,
 >>>>>>> 2bce225e0e110937dbd3b83bb65583e1054eb7c4
+=======
+  Future<bool> registerUserrasya(
+    String fullName,
+    String username,
+>>>>>>> 0b724007d416f43e7391bb978a8331cad4bae681
     String email,
     String password,
   ) async {
