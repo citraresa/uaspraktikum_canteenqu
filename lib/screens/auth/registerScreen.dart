@@ -10,13 +10,6 @@ class RegisterScreenMaulina extends StatefulWidget {
 } 
 class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> { 
 
-<<<<<<< HEAD
-  final _fullnameController_Maulina = TextEditingController(); 
-  final _usernameController_Maulina = TextEditingController();
-  final _emailController_rasya = TextEditingController();
-  final _passwordController_Maulina = TextEditingController(); //variabel controller untuk mengambil input password
-  final _confirmPasswordController_Maulina = TextEditingController(); //variabel controller untuk mengambil input confirm password
-=======
 class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
   final _fullnameController_maulina = TextEditingController();
   final _usernameController_maulina = TextEditingController();
@@ -25,14 +18,12 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
   final _confirmPasswordController_maulina = TextEditingController();
 
   final _formKey_rasya = GlobalKey<FormState>(); // Form key register
->>>>>>> fe4441891b47dfa989f352b5491a04c38c3477f9
-
   final Color kPrimaryBlue = const Color.fromARGB(255, 37, 80, 144);
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
 
   bool _loading_rasya = false;
 
-  // ================= REGISTER FUNCTION =================
+  // ===== REGISTER FUNCTION =====
   Future<void> _register_rasya() async {
     if (!_formKey_rasya.currentState!.validate()) return;
 
@@ -45,7 +36,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
 
     try {
       bool success = await AuthController_rasya()
-          .registerUser_rasya(email, password, username);
+          .registerUser_rasya(fullname, username, email, password);
 
       if (success) {
         if (!mounted) return;
@@ -71,11 +62,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
     );
   }
 
-<<<<<<< HEAD
-  
-=======
   // ================= UI =================
->>>>>>> fe4441891b47dfa989f352b5491a04c38c3477f9
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,72 +89,6 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                 ),
                 const SizedBox(height: 40),
 
-<<<<<<< HEAD
-              // Email
-              TextFormField(
-                controller: _emailController_rasya,
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: TextStyle(color: kPrimaryBlue),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kPrimaryBlue),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
-                  ),
-                ),
-                keyboardType: TextInputType.emailAddress,
-              ),
-              const SizedBox(height: 20),
-
-              // Password
-              TextFormField(
-                controller: _passwordController_Maulina,
-                decoration: InputDecoration(
-                  labelText: 'Password',
-                  labelStyle: TextStyle(color: kPrimaryBlue),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kPrimaryBlue),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
-                  ),
-                ),
-                obscureText: true,
-              ),
-              const SizedBox(height: 20),
-
-              // Confirm Password
-              TextFormField(
-                controller: _confirmPasswordController_Maulina,
-                decoration: InputDecoration(
-                  labelText: 'Confirm Password',
-                  labelStyle: TextStyle(color: kPrimaryBlue),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: kPrimaryBlue),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide:
-                        BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
-                  ),
-                ),
-                obscureText: true,
-              ),
-
-              const SizedBox(height: 30),
-              // Tombol Register
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: kPrimaryBlue,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 14),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-=======
                 // Fullname
                 TextFormField(
                   controller: _fullnameController_maulina,
@@ -180,15 +101,10 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                     enabledBorder: OutlineInputBorder(
                       borderSide:
                           BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
->>>>>>> fe4441891b47dfa989f352b5491a04c38c3477f9
                     ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Fullname tidak boleh kosong';
-                    }
-                    return null;
-                  },
+                  validator: (value) =>
+                      (value == null || value.isEmpty) ? 'Fullname tidak boleh kosong' : null,
                 ),
                 const SizedBox(height: 20),
 
@@ -202,16 +118,11 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                       borderSide: BorderSide(color: kPrimaryBlue),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                      borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
                     ),
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Username tidak boleh kosong';
-                    }
-                    return null;
-                  },
+                  validator: (value) =>
+                      (value == null || value.isEmpty) ? 'Username tidak boleh kosong' : null,
                 ),
                 const SizedBox(height: 20),
 
@@ -225,18 +136,13 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                       borderSide: BorderSide(color: kPrimaryBlue),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                      borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
                     ),
                   ),
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Email tidak boleh kosong';
-                    }
-                    if (!value.contains('@')) {
-                      return 'Format email tidak valid';
-                    }
+                    if (value == null || value.isEmpty) return 'Email tidak boleh kosong';
+                    if (!value.contains('@') || !value.endsWith('.com')) return 'Format email tidak valid';
                     return null;
                   },
                 ),
@@ -245,6 +151,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                 // Password
                 TextFormField(
                   controller: _passwordController_maulina,
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Password',
                     labelStyle: TextStyle(color: kPrimaryBlue),
@@ -252,18 +159,12 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                       borderSide: BorderSide(color: kPrimaryBlue),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                      borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
                     ),
                   ),
-                  obscureText: true,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Password tidak boleh kosong';
-                    }
-                    if (value.length < 6) {
-                      return 'Password minimal 6 karakter';
-                    }
+                    if (value == null || value.isEmpty) return 'Password tidak boleh kosong';
+                    if (value.length < 6) return 'Password minimal 6 karakter';
                     return null;
                   },
                 ),
@@ -272,6 +173,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                 // Confirm Password
                 TextFormField(
                   controller: _confirmPasswordController_maulina,
+                  obscureText: true,
                   decoration: InputDecoration(
                     labelText: 'Confirm Password',
                     labelStyle: TextStyle(color: kPrimaryBlue),
@@ -279,18 +181,13 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                       borderSide: BorderSide(color: kPrimaryBlue),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide:
-                          BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
+                      borderSide: BorderSide(color: kPrimaryBlue.withOpacity(0.4)),
                     ),
                   ),
-                  obscureText: true,
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Confirm Password tidak boleh kosong';
-                    }
-                    if (value != _passwordController_maulina.text) {
+                    if (value == null || value.isEmpty) return 'Confirm Password tidak boleh kosong';
+                    if (value != _passwordController_maulina.text)
                       return 'Password dan Confirm Password tidak sama';
-                    }
                     return null;
                   },
                 ),
@@ -308,14 +205,10 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                     ),
-                    onPressed:
-                        _loading_rasya ? null : _register_rasya, // 🔹 Fungsi controller
+                    onPressed: _loading_rasya ? null : _register_rasya,
                     child: _loading_rasya
                         ? const CircularProgressIndicator(color: Colors.white)
-                        : const Text(
-                            'Register',
-                            style: TextStyle(fontSize: 16),
-                          ),
+                        : const Text('Register', style: TextStyle(fontSize: 16)),
                   ),
                 ),
 
@@ -324,22 +217,14 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      "Already have an account?",
-                      style: TextStyle(color: kPrimaryBlue),
-                    ),
+                    Text("Already have an account?", style: TextStyle(color: kPrimaryBlue)),
                     TextButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text(
-                        "Sign In",
-                        style: TextStyle(
-                          color: kPrimaryBlue,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )
+                      child: Text("Sign In",
+                          style: TextStyle(color: kPrimaryBlue, fontWeight: FontWeight.bold)),
+                    ),
                   ],
                 ),
               ],

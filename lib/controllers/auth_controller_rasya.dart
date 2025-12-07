@@ -6,6 +6,7 @@ class AuthController_rasya {
   final FirebaseAuth _auth_rasya = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+  // ===== LOGIN =====
   Future<bool> loginUser_rasya(String email, String password) async {
     try {
       await _auth_rasya.signInWithEmailAndPassword(
@@ -33,9 +34,12 @@ class AuthController_rasya {
       UserCredential userCredential = await _auth_rasya
           .createUserWithEmailAndPassword(email: email, password: password);
 
+      // 2️⃣ Simpan semua data ke Firestore
       await _firestore.collection('users').doc(userCredential.user!.uid).set({
+        'fullname': fullname,
         'username': username,
         'email': email,
+        'password': password, // Hanya untuk demo, tidak aman di produksi
       });
 
       return true;
@@ -48,6 +52,7 @@ class AuthController_rasya {
     }
   }
 
+  // ===== LOGOUT =====
   Future<void> logoutUser_rasya() async {
     await _auth_rasya.signOut();
   }
