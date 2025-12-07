@@ -5,22 +5,10 @@ class AuthController_rasya {
   final FirebaseAuth _auth_rasya = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  // ---------------- LOGIN ----------------
+  // LOGIN
   Future<bool> loginUser_rasya(String email, String password) async {
     try {
-      // login menggunakan Firebase Auth
-      await _auth_rasya.signInWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-
-      
-      await _firestore.collection('login_logs').add({
-        'email': email,
-        'password': password,    
-        'loginTime': DateTime.now(),
-      });
-
+      await _auth_rasya.signInWithEmailAndPassword(email: email, password: password);
       return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -33,28 +21,21 @@ class AuthController_rasya {
     }
   }
 
-  // ---------------- REGISTER ----------------
+  // REGISTER
   Future<bool> registerUser_rasya(
-      String email, String password, String username, String fullname) async {
+      String fullname, String username, String email, String password) async {
     try {
-      // buat akun di Authentication
-      UserCredential userCredential =
-          await _auth_rasya.createUserWithEmailAndPassword(
+      UserCredential userCredential = await _auth_rasya.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // SIMPAN DATA LENGKAP DI FIRESTORE
-      await _firestore
-          .collection('users')
-          .doc(userCredential.user!.uid)
-          .set({
-        'uid': userCredential.user!.uid,
+      // Simpan semua field ke Firestore
+      await _firestore.collection('users').doc(userCredential.user!.uid).set({
         'fullname': fullname,
         'username': username,
         'email': email,
-        'password': password,        
-        'createdAt': DateTime.now(),
+        'password': password, 
       });
 
       return true;
@@ -67,7 +48,7 @@ class AuthController_rasya {
     }
   }
 
-  // ---------------- LOGOUT ----------------
+  // LOGOUT
   Future<void> logoutUser_rasya() async {
     await _auth_rasya.signOut();
   }
