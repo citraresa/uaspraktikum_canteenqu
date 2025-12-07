@@ -74,18 +74,13 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  "CREATE ACCOUNT",
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: kPrimaryBlue,
-                  ),
-                ),
-                Text(
-                  "Join us today",
-                  style: TextStyle(color: kPrimaryBlue.withOpacity(0.7)),
-                ),
+                Text("CREATE ACCOUNT",
+                    style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: kPrimaryBlue)),
+                Text("Join us today",
+                    style: TextStyle(color: kPrimaryBlue.withOpacity(0.7))),
                 const SizedBox(height: 40),
 
                 // Fullname
