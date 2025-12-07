@@ -19,6 +19,8 @@ class _LoginScreenMaulinaState extends State<LoginScreenMaulina> {
   final Color kWhite = const Color.fromARGB(255, 231, 231, 241);
   bool _loading_rasya = false;
 
+  // sudah fix
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

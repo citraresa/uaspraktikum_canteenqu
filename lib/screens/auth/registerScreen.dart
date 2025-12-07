@@ -31,7 +31,7 @@ class _RegisterScreenMaulinaState extends State<RegisterScreenMaulina> {
 >>>>>>> 0b724007d416f43e7391bb978a8331cad4bae681
   bool _loadingrasya = false;
 
-  // REGISTER FUNCTION
+  // sudah fix
   Future<void> _registerrasya() async {
 <<<<<<< HEAD
 >>>>>>> 2bce225e0e110937dbd3b83bb65583e1054eb7c4
